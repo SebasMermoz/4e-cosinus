@@ -1,1 +1,74 @@
-Hello world!
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Cosinus - Triangle Rectangle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .game-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h2>Calculer la longueur du côté adjacent</h2>
+        <p>Hypoténuse : <span id="hypotenuse"></span></p>
+        <p>Angle (en degrés) : <span id="angle"></span></p>
+        
+        <label for="answer">Votre réponse (arrondi au dixième) :</label>
+        <input type="number" id="answer" step="0.1">
+        <button onclick="checkAnswer()">Vérifier</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Générer des valeurs aléatoires pour l'angle et l'hypoténuse
+        let angle = (Math.random() * 60 + 10).toFixed(1); // Angle entre 10 et 70 degrés
+        let hypotenuse = (Math.random() * 20 + 5).toFixed(1); // Hypoténuse entre 5 et 25 unités
+
+        // Afficher les valeurs dans l'interface
+        document.getElementById('angle').innerText = angle;
+        document.getElementById('hypotenuse').innerText = hypotenuse;
+
+        // Convertir l'angle en radians
+        function degToRad(deg) {
+            return deg * (Math.PI / 180);
+        }
+
+        // Calculer le côté adjacent
+        let adjacent = (Math.cos(degToRad(angle)) * hypotenuse).toFixed(1);
+
+        // Vérifier la réponse de l'utilisateur
+        function checkAnswer() {
+            let userAnswer = parseFloat(document.getElementById('answer').value);
+            let resultElement = document.getElementById('result');
+
+            if (userAnswer === parseFloat(adjacent)) {
+                resultElement.innerHTML = "<span style='color: green;'>Correct ! Le côté adjacent est " + adjacent + "</span>";
+            } else {
+                resultElement.innerHTML = "<span style='color: red;'>Faux. La bonne réponse est " + adjacent + "</span>";
+            }
+        }
+    </script>
+</body>
+</html>
+
